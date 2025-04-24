@@ -137,7 +137,7 @@ env.bak/
 venv.bak/
 
 # Secret files ( API )
-.env
+#.env
 
 # Spyder project settings
 .spyderproject
