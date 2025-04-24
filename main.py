@@ -7,7 +7,7 @@ from dateutil import parser
 from icalendar import Event, Calendar
 import os
 from dotenv import load_dotenv
-# --- ТВОИ ДАННЫЕ ---
+
 load_dotenv()
 
 
