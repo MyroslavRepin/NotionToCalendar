@@ -67,8 +67,28 @@ def update_calendar():
                 print(f"⚠️ У события '{event_title}' нет даты.")
                 continue
 
-            date_str = date_property["start"]
-            is_all_day = 'T' not in date_str
+            start_str = date_property["start"]
+            end_str = date_property.get("end")
+            
+            is_all_day = 'T' not in start_str
+            
+            if is_all_day:
+                start = parser.parse(start_str).date()
+                if end_str:
+                    end = parser.parse(end_str).date()
+                else:
+                    end = start + timedelta(days=1)
+                vevent.add("dtstart", start)
+                vevent.add("dtend", end)
+            else:
+                start = parser.isoparse(start_str).astimezone(pytz.utc)
+                if end_str:
+                    end = parser.isoparse(end_str).astimezone(pytz.utc)
+                else:
+                    end = start + timedelta(hours=1)
+                vevent.add("dtstart", start)
+                vevent.add("dtend", end)
+
 
             page_id = page['id'].replace('-', '')
             notion_url = f"https://www.notion.so/{page_id}"
